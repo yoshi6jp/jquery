@@ -1,0 +1,7 @@
+<?
+	// Load and run the test suite as a proper XHTML page
+	response.writeHead( 200, {
+		"Content-Type": "application/xhtml+xml"
+	});
+	// Load the file
+	require("fs").createReadStream( require("path").join( __dirname, "./index.html" ) ).pipe( response );

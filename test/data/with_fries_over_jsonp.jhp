@@ -1,0 +1,16 @@
+<?
+var query = request.parsedURL.query;
+
+require("fs").readFile( require("path").join( __dirname, "with_fries.xml" ), function( err, data ) {
+	if ( err ) {
+		response.writeHead( 500, {
+			"Content-type": "text/plain"
+		});
+		response.end( "" + err );
+	} else {
+		response.writeHead( 200, {
+			"Content-type": "application/javascript"
+		});
+		response.end( query.callback + "(" + JSON.stringify( "" + data ) + ");" );
+	}
+});

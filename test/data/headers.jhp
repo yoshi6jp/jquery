@@ -1,0 +1,13 @@
+<?
+
+response.setHeader( "Sample-Header", "Hello World" );
+response.setHeader( "Empty-Header", "" );
+response.setHeader( "Sample-Header2", "Hello World 2" );
+
+response.setHeader( "Content-type", "text/plain" );
+
+request.parsedURL.query.keys.split("_").forEach(function( key ) {
+	response.write( key + ": " + ( request.headers[ key.toLowerCase() ] || "" ) + "\n" );
+});
+
+response.end();

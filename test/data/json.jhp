@@ -1,0 +1,13 @@
+<?
+
+var query = request.parsedURL.query;
+
+if ( query.header ) {
+	response.setHeader( "Content-type", "application/json" );
+} else {
+	response.setHeader( "Content-type", "text/plain" );
+}
+
+response.end( JSON.stringify( query.json
+	? [ {"name": "John", "age": 21}, {"name": "Peter", "age": 25 } ]
+	: { "data": {"lang": "en", "length": 25} } ) );

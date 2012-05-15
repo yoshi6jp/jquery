@@ -4,7 +4,7 @@ var jQuery = this.jQuery || "jQuery", // For testing .noConflict()
 	$ = this.$ || "$",
 	originaljQuery = jQuery,
 	original$ = $,
-	hasPHP = true,
+	hasJHP = true,
 	amdDefined;
 
 /**
@@ -114,8 +114,8 @@ if ( document.createEvent ) {
  * @example url("data/test.html")
  * @result "data/test.html?10538358428943"
  *
- * @example url("data/test.php?foo=bar")
- * @result "data/test.php?foo=bar&10538358345554"
+ * @example url("data/test.jhp?foo=bar")
+ * @result "data/test.jhp?foo=bar&10538358345554"
  */
 function url(value) {
 	return value + (/\?/.test(value) ? "&" : "?") + new Date().getTime() + "" + parseInt(Math.random()*100000);

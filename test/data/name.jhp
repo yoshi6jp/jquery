@@ -1,0 +1,37 @@
+<?
+
+request.query.done(function( query ) {
+
+	function go() {
+	
+		request.query.done(function( query ) {
+			var xml = query.xml,
+				name = query.name;
+		
+			if ( xml ) {
+				response.setHeader( "Content-type", "text/xml" );
+<?
+<math>
+	<calculation><?= xml ?></calculation>
+	<result><?= xml === "5-2" ? "3" : "?" ?></result>
+</math>
+?>
+			} else if( name === "foo" ) {
+				response.setHeader( "Content-type", "text/plain" );
+				response.write("bar") ;
+			} else if( name === "peter" ) {
+				response.setHeader( "Content-type", "text/plain" );
+				response.write("pan");
+			} else {
+?>ERROR <script type="text/javascript">ok( true, "name.jhp executed" );</script><?
+			}
+			response.end();
+		});
+	}
+
+	if ( query.wait ) {
+		setTimeout( go, 1000 * query.wait );
+	} else {
+		go();
+	}
+});

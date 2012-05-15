@@ -1,0 +1,11 @@
+<?
+
+request.query.done(function( query ) {
+
+	var callback = query.callback || request.parsedURL.pathname.split("/").pop();
+
+	response.end( callback + "(" + JSON.stringify( query.json
+		? [ {"name": "John", "age": 21}, {"name": "Peter", "age": 25 } ]
+		: { "data": {"lang": "en", "length": 25} } ) + ");" );
+		
+});

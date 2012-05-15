@@ -1,0 +1,9 @@
+html text<br/>
+<script type="text/javascript">/* <![CDATA[ */
+testFoo = "foo"; jQuery('#foo').html('foo');
+ok( true, "test.jhp executed" );
+/* ]]> */</script>
+<script src="data/test.js?<?= ( +(new Date) ) + Math.rand() ?>"></script>
+blabla
+<?
+	response.end();

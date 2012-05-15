@@ -966,7 +966,7 @@ test("trigger() bubbling", function() {
 
 	jQuery( document ).trigger("click");
 	equal( win, 4, "doc bubble" );
-	
+
 	// manually clean up events from elements outside the fixture
 	jQuery(document).unbind("click");
 	jQuery("html, body, #qunit-fixture").unbind("click");
@@ -2799,10 +2799,10 @@ test("fixHooks extensions", function() {
 
 
 // async loaded tests expect jQuery to be loaded as a single file
-// if we're not doing PHP concat, then we fall back to document.write
+// if we're not doing JHP concat, then we fall back to document.write
 // which breaks order of execution on async loaded files
-// also need PHP to make the incepted IFRAME hang
-if ( hasPHP ) {
+// also need JHP to make the incepted IFRAME hang
+if ( hasJHP ) {
 	testIframeWithCallback( "jQuery.ready promise", "event/promiseReady", function( isOk ) {
 		expect(1);
 		ok( isOk, "$.when( $.ready ) works" );

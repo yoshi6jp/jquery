@@ -1,0 +1,30 @@
+<?
+function show( body ){
+
+	var	POST = require("querystring").parse( body ),
+		GET = request.parsedURL.query,
+		key;
+?>		
+<div id="post">
+<?
+	for ( key in POST ) {
+		response.write( "<b id='" + key + "'>" + POST[ key ] + "</b>" );
+	}
+?>
+</div>
+<div id="get">
+<?
+	for ( key in GET ) {
+		response.write( "<b id='" + key + "'>" + GET[ key ] + "</b>" );
+	}
+?>
+</div>
+<?
+	response.end();
+}
+
+if ( request.method === "POST" ) {
+	request.body.done( show );
+} else {
+	show("");
+}

@@ -1,0 +1,4 @@
+<?
+
+response.writeHead( 400 );
+response.end( "plain text message" );

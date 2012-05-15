@@ -2,7 +2,7 @@ module("core", { teardown: moduleTeardown });
 
 test("Unit Testing Environment", function () {
 	expect(2);
-	ok( hasPHP, "Running Unit tests without PHP is unsupported! The AJAX tests won't run without it and don't expect all tests to pass without it!" );
+	ok( hasJHP, "Running Unit tests without JHP is unsupported! The AJAX tests won't run without it and don't expect all tests to pass without it!" );
 	ok( !isLocal, "Unit tests shouldn't be run from file://, especially in Chrome. If you must test from file:// with Chrome, run it with the --allow-file-access-from-files flag!" );
 });
 

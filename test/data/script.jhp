@@ -1,0 +1,15 @@
+<?
+
+var header = request.parsedURL.query.header;
+
+if ( header ) {
+	response.setHeader( "Content-type",
+		header === "ecma"
+		? "application/ecmascript"
+		: "text/javascript"
+	);
+}
+?>
+ok( true, "Script executed correctly." );
+<?
+response.end();

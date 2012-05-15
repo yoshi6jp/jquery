@@ -1,0 +1,117 @@
+/*
+<?
+
+response.write( "*" + "/\n" );
+
+var fs = require("fs"),
+	path = require("path");
+
+// initialize vars
+var version = (function() {
+		var referer = request.headers["referrer"] || request.headers["referer"]; 
+		return referer && require("url").parse( referer, true ).query.jquery
+			|| request.parsedURL.query.jquery;
+	})();
+	
+// load up built versions of jquery
+if ( version ) {
+	if( version === "min" ) {
+		fs.createReadStream( "../dist/jquery.min.js" ).pipe( response );
+	} else if( version === "dist" ) {
+		fs.createReadStream( "../dist/jquery.js" ).pipe( response );
+	} else {
+		response.end( "document.write('<script src=\"http://code.jquery.com/jquery-" + version + ".js\"><'+'/script>');" );
+	}
+	return;
+}
+
+// the concatenated version of the the src files is both the default and the fallback
+// because it does not require you to "make" jquery for it to update
+var files = {
+		"intro": "",
+		"core": "",
+		"callbacks": "",
+		"deferred": "",
+		"support": "",
+		"data": "",
+		"queue": "",
+		"attributes": "",
+		"event": "",
+		"sizzle/sizzle": "",
+		"sizzle-jquery": "",
+		"traversing": "",
+		"manipulation": "",
+		"css": "",
+		"ajax": "",
+		"ajax/jsonp": "",
+		"ajax/script": "",
+		"ajax/xhr": "",
+		"effects": "",
+		"offset": "",
+		"dimensions": "",
+		"exports": "",
+		"outro": ""
+	},
+	count = 1,
+	decount = function() {
+		var key;
+		if (!( --count )) {
+			for ( key in files ) {
+				response.write( files[ key ] );
+			}
+			response.end();
+		}
+	},
+	key;
+	
+for ( key in files ) {
+	count++;
+	fs.readFile( "src/" + key + ".js", (function( key ) {
+		return function( err, data ) {
+			files[ key ] = err || ( "" + data ).replace( "(function( jQuery ) {", "" ).replace( "})( jQuery );", "" );
+			decount();
+		};
+	})( key ) );
+}
+
+decount();
+
+return;
+
+?>*/
+
+hasJHP = false;
+
+// javascript fallback using src files in case this is not run on a PHP server!
+// please note that this fallback is for convenience only, and is not fully supported
+// i.e. don't expect all of the tests to work properly
+var baseURL = document.location.href.replace( /\/test\/.+/, "/"),
+	files = [
+		"core",
+		"callbacks",
+		"deferred",
+		"support",
+		"data",
+		"queue",
+		"attributes",
+		"event",
+		"sizzle/sizzle",
+		"sizzle-jquery",
+		"traversing",
+		"manipulation",
+		"css",
+		"ajax",
+		"ajax/jsonp",
+		"ajax/script",
+		"ajax/xhr",
+		"effects",
+		"offset",
+		"dimensions",
+		"exports"
+	],
+	len = files.length,
+	i = 0;
+
+for ( ; i < len; i++ ) {
+	document.write("<script src=\"" + baseURL + "src/" + files[ i ] + ".js\"><"+"/script>");
+}

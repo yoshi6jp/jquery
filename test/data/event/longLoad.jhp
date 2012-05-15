@@ -1,0 +1,11 @@
+<?
+var query = request.parsedURL.query;
+
+setTimeout(function() {
+?>
+<script type="text/javascript">
+window.parent.parent.iframeCallback(<?= query[ "return" ] ?>);
+</script>
+<?
+}, 1 * query.sleep );
+?>

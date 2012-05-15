@@ -1,6 +1,6 @@
 module("ajax", { teardown: moduleTeardown });
 
-if ( !isLocal || hasPHP) {
+if ( !isLocal || hasJHP) {
 
 test("jQuery.ajax() - success callbacks", function() {
 	expect( 8 );
@@ -227,7 +227,7 @@ test("jQuery.ajax() - error callbacks", function() {
 	jQuery.ajaxSetup({ timeout: 500 });
 
 	jQuery.ajax({
-		url: url("data/name.php?wait=5"),
+		url: url("data/name.jhp?wait=5"),
 		beforeSend: function(){ ok(true, "beforeSend"); },
 		success: function(){ ok(false, "success"); },
 		error: function(){ ok(true, "error"); },
@@ -281,7 +281,7 @@ test("jQuery.ajax() - textStatus and errorThrown values", function() {
 	*/
 
 	jQuery.ajax({
-		url: url("data/name.php?wait=5"),
+		url: url("data/name.jhp?wait=5"),
 		error: function( _ , textStatus , errorThrown ){
 			strictEqual( textStatus, "abort", "textStatus is 'abort' for abort" );
 			strictEqual( errorThrown, "abort", "errorThrown is 'abort' for abort");
@@ -290,7 +290,7 @@ test("jQuery.ajax() - textStatus and errorThrown values", function() {
 	}).abort();
 
 	jQuery.ajax({
-		url: url("data/name.php?wait=5"),
+		url: url("data/name.jhp?wait=5"),
 		error: function( _ , textStatus , errorThrown ){
 			strictEqual( textStatus, "mystatus", "textStatus is 'mystatus' for abort('mystatus')" );
 			strictEqual( errorThrown, "mystatus", "errorThrown is 'mystatus' for abort('mystatus')");
@@ -306,7 +306,7 @@ test("jQuery.ajax() - responseText on error", function() {
 	stop();
 
 	jQuery.ajax({
-		url: url("data/errorWithText.php"),
+		url: url("data/errorWithText.jhp"),
 		error: function(xhr) {
 			strictEqual( xhr.responseText , "plain text message" , "Test jqXHR.responseText is filled for HTTP errors" );
 		},
@@ -326,7 +326,7 @@ test(".ajax() - retry with jQuery.ajax( this )", function() {
 		previousUrl;
 
 	jQuery.ajax({
-		url: url("data/errorWithText.php"),
+		url: url("data/errorWithText.jhp"),
 		error: function() {
 			if ( firstTime ) {
 				firstTime = false;
@@ -334,7 +334,7 @@ test(".ajax() - retry with jQuery.ajax( this )", function() {
 			} else {
 				ok( true , "Test retrying with jQuery.ajax(this) works" );
 				jQuery.ajax({
-					url: url("data/errorWithText.php"),
+					url: url("data/errorWithText.jhp"),
 					data: { x: 1 },
 					beforeSend: function() {
 						if ( !previousUrl ) {
@@ -377,7 +377,7 @@ test(".ajax() - headers" , function() {
 	}
 	list.push( "ajax-send" );
 
-	jQuery.ajax(url("data/headers.php?keys="+list.join( "_" ) ), {
+	jQuery.ajax(url("data/headers.jhp?keys="+list.join( "_" ) ), {
 
 		headers: requestHeaders,
 		success: function( data , _ , xhr ) {
@@ -411,7 +411,7 @@ test(".ajax() - Accept header" , function() {
 
 	stop();
 
-	jQuery.ajax(url("data/headers.php?keys=accept"), {
+	jQuery.ajax(url("data/headers.jhp?keys=accept"), {
 		headers: {
 			Accept: "very wrong accept value"
 		},
@@ -441,7 +441,7 @@ test(".ajax() - contentType" , function() {
 		}
 	}
 
-	jQuery.ajax(url("data/headers.php?keys=content-type" ), {
+	jQuery.ajax(url("data/headers.jhp?keys=content-type" ), {
 		contentType: "test",
 		success: function( data ) {
 			strictEqual( data , "content-type: test\n" , "Test content-type is sent when options.contentType is set" );
@@ -451,7 +451,7 @@ test(".ajax() - contentType" , function() {
 		}
 	});
 
-	jQuery.ajax(url("data/headers.php?keys=content-type" ), {
+	jQuery.ajax(url("data/headers.jhp?keys=content-type" ), {
 		contentType: false,
 		success: function( data ) {
 			strictEqual( data , "content-type: \n" , "Test content-type is not sent when options.contentType===false" );
@@ -609,7 +609,7 @@ test("jQuery.ajax() - abort", function() {
 	});
 
 	var xhr = jQuery.ajax({
-		url: url("data/name.php?wait=5"),
+		url: url("data/name.jhp?wait=5"),
 		beforeSend: function(){ ok(true, "beforeSend"); },
 		complete: function(){ ok(true, "complete"); }
 	});
@@ -794,7 +794,7 @@ test("jQuery.ajax - xml: non-namespace elements inside namespaced elements (over
 	expect(3);
 	stop();
 	jQuery.ajax({
-	  url: url("data/with_fries_over_jsonp.php"),
+	  url: url("data/with_fries_over_jsonp.jhp"),
 	  dataType: "jsonp xml",
 	  success: function(resp) {
 		equal( jQuery("properties", resp).length, 1, "properties in responseXML" );
@@ -1117,12 +1117,12 @@ test("ajax cache", function () {
 			start();
 	});
 
-	ok( jQuery.ajax({url: "data/text.php", cache:false}), "test with no parameters" );
-	ok( jQuery.ajax({url: "data/text.php?pizza=true", cache:false}), "test with 1 parameter" );
-	ok( jQuery.ajax({url: "data/text.php?_=tobereplaced555", cache:false}), "test with _= parameter" );
-	ok( jQuery.ajax({url: "data/text.php?pizza=true&_=tobereplaced555", cache:false}), "test with 1 parameter plus _= one" );
-	ok( jQuery.ajax({url: "data/text.php?_=tobereplaced555&tv=false", cache:false}), "test with 1 parameter plus _= one before it" );
-	ok( jQuery.ajax({url: "data/text.php?name=David&_=tobereplaced555&washere=true", cache:false}), "test with 2 parameters surrounding _= one" );
+	ok( jQuery.ajax({url: "data/text.jhp", cache:false}), "test with no parameters" );
+	ok( jQuery.ajax({url: "data/text.jhp?pizza=true", cache:false}), "test with 1 parameter" );
+	ok( jQuery.ajax({url: "data/text.jhp?_=tobereplaced555", cache:false}), "test with _= parameter" );
+	ok( jQuery.ajax({url: "data/text.jhp?pizza=true&_=tobereplaced555", cache:false}), "test with 1 parameter plus _= one" );
+	ok( jQuery.ajax({url: "data/text.jhp?_=tobereplaced555&tv=false", cache:false}), "test with 1 parameter plus _= one before it" );
+	ok( jQuery.ajax({url: "data/text.jhp?name=David&_=tobereplaced555&washere=true", cache:false}), "test with 2 parameters surrounding _= one" );
 });
 
 /*
@@ -1237,7 +1237,7 @@ test("load(String, Object, Function)", function() {
 	expect(2);
 	stop();
 
-	jQuery("<div />").load(url("data/params_html.php"), { foo: 3, bar: "ok" }, function() {
+	jQuery("<div />").load(url("data/params_html.jhp"), { foo: 3, bar: "ok" }, function() {
 		var $post = jQuery(this).find("#post");
 		equal( $post.find("#foo").text(), "3", "Check if a hash of data is passed correctly");
 		equal( $post.find("#bar").text(), "ok", "Check if a hash of data is passed correctly");
@@ -1249,7 +1249,7 @@ test("load(String, String, Function)", function() {
 	expect(2);
 	stop();
 
-	jQuery("<div />").load(url("data/params_html.php"), "foo=3&bar=ok", function() {
+	jQuery("<div />").load(url("data/params_html.jhp"), "foo=3&bar=ok", function() {
 		var $get = jQuery(this).find("#get");
 		equal( $get.find("#foo").text(), "3", "Check if a string of data is passed correctly");
 		equal( $get.find("#bar").text(), "ok", "Check if a	 of data is passed correctly");
@@ -1266,7 +1266,7 @@ asyncTest("load() - data specified in ajaxSettings is merged in (#10524)", 1, fu
 		baz: 1
 	};
 
-	jQuery("#foo").load( "data/echoQuery.php", data).ajaxComplete(function( event, jqXHR, options ) {
+	jQuery("#foo").load( "data/echoQuery.jhp", data).ajaxComplete(function( event, jqXHR, options ) {
 		ok( ~options.data.indexOf("foo=bar"), "Data from ajaxSettings was used" );
 		jQuery.ajaxSetup({
 			data: null
@@ -1291,11 +1291,11 @@ asyncTest("load() - callbacks get the correct parameters", 8, function() {
 	jQuery.when.apply( jQuery, jQuery.map([
 		{
 			type: "success",
-			url: "data/echoQuery.php?arg=pop"
+			url: "data/echoQuery.jhp?arg=pop"
 		},
 		{
 			type: "error",
-			url: "data/404.php"
+			url: "data/404.jhp"
 		}
 	], function( options ) {
 		return jQuery.Deferred(function( defer ) {
@@ -1323,7 +1323,7 @@ test("jQuery.get(String, Function) - data in ajaxSettings (#8277)", function() {
 	jQuery.ajaxSetup({
 		data: "helloworld"
 	});
-	jQuery.get(url("data/echoQuery.php"), function(data) {
+	jQuery.get(url("data/echoQuery.jhp"), function(data) {
 		ok( /helloworld$/.test( data ), "Data from ajaxSettings was used");
 		jQuery.ajaxSetup({
 			data: null
@@ -1377,7 +1377,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		stop();
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1391,7 +1391,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1410,7 +1410,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php?callback=?",
+			url: "data/jsonp.jhp?callback=?",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1424,7 +1424,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			data: "callback=?",
@@ -1439,7 +1439,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php?callback=??",
+			url: "data/jsonp.jhp?callback=??",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1453,7 +1453,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			data: "callback=??",
@@ -1468,7 +1468,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php/??",
+			url: "data/jsonp.jhp/??",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1482,7 +1482,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php/???json=1",
+			url: "data/jsonp.jhp/???json=1",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1496,7 +1496,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			jsonp: "callback",
@@ -1517,7 +1517,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		};
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			jsonpCallback: "jsonpResults",
@@ -1532,7 +1532,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			jsonpCallback: "functionToCleanUp",
@@ -1542,7 +1542,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 				plus();
 				var xhr;
 				jQuery.ajax({
-					url: "data/jsonp.php",
+					url: "data/jsonp.jhp",
 					dataType: "jsonp",
 					crossDomain: crossDomain,
 					jsonpCallback: "functionToCleanUp",
@@ -1565,7 +1565,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 
 		jQuery.ajax({
 			type: "POST",
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			success: function(data){
@@ -1580,7 +1580,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 
 		jQuery.ajax({
 			type: "POST",
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			data: "callback=?",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
@@ -1596,7 +1596,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 
 		jQuery.ajax({
 			type: "POST",
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			jsonp: "callback",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
@@ -1612,7 +1612,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 
 		//#7578
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			beforeSend: function(){
@@ -1623,13 +1623,13 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 		});
 
 		jQuery.ajax({
-			url: "data/jsonp.php?callback=XXX",
+			url: "data/jsonp.jhp?callback=XXX",
 			dataType: "jsonp",
 			jsonp: false,
 			jsonpCallback: "XXX",
 			crossDomain: crossDomain,
 			beforeSend: function() {
-				ok( /^data\/jsonp.php\?callback=XXX&_=\d+$/.test( this.url ) ,
+				ok( /^data\/jsonp.jhp\?callback=XXX&_=\d+$/.test( this.url ) ,
 					"The URL wasn't messed with (GET, custom callback name with no url manipulation)" );
 				plus();
 			},
@@ -1645,7 +1645,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 
 		//#8205
 		jQuery.ajax({
-			url: "data/jsonp.php",
+			url: "data/jsonp.jhp",
 			dataType: "jsonp",
 			crossDomain: crossDomain,
 			beforeSend: function() {
@@ -1655,7 +1655,7 @@ jQuery.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label )
 			var previous = this;
 			strictEqual( previous.jsonpCallback, undefined, "jsonpCallback option is set back to default in callbacks" );
 			jQuery.ajax({
-				url: "data/jsonp.php",
+				url: "data/jsonp.jhp",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
 				beforeSend: function() {
@@ -1754,12 +1754,12 @@ test("jQuery.ajax() - script by content-type", function() {
 	jQuery.when(
 
 		jQuery.ajax({
-			url: "data/script.php",
+			url: "data/script.jhp",
 			data: { header: "script" }
 		}),
 
 		jQuery.ajax({
-			url: "data/script.php",
+			url: "data/script.jhp",
 			data: { header: "ecma" }
 		})
 
@@ -1774,7 +1774,7 @@ test("jQuery.ajax() - json by content-type", function() {
 	stop();
 
 	jQuery.ajax({
-		url: "data/json.php",
+		url: "data/json.jhp",
 		data: { header: "json", json: "array" },
 		success: function( json ) {
 	  		ok( json.length >= 2, "Check length");
@@ -1793,7 +1793,7 @@ test("jQuery.ajax() - json by content-type disabled with options", function() {
 	stop();
 
 	jQuery.ajax({
-		url: url("data/json.php"),
+		url: url("data/json.jhp"),
 		data: { header: "json", json: "array" },
 		contents: {
 			json: false
@@ -1814,7 +1814,7 @@ test("jQuery.ajax() - json by content-type disabled with options", function() {
 test("jQuery.getJSON(String, Hash, Function) - JSON array", function() {
 	expect(5);
 	stop();
-	jQuery.getJSON(url("data/json.php"), {json: "array"}, function(json) {
+	jQuery.getJSON(url("data/json.jhp"), {json: "array"}, function(json) {
 	  ok( json.length >= 2, "Check length");
 	  equal( json[0].name, "John", "Check JSON: first, name" );
 	  equal( json[0].age, 21, "Check JSON: first, age" );
@@ -1827,7 +1827,7 @@ test("jQuery.getJSON(String, Hash, Function) - JSON array", function() {
 test("jQuery.getJSON(String, Function) - JSON object", function() {
 	expect(2);
 	stop();
-	jQuery.getJSON(url("data/json.php"), function(json) {
+	jQuery.getJSON(url("data/json.jhp"), function(json) {
 	  if (json && json.data) {
 		  equal( json.data.lang, "en", "Check JSON: lang" );
 		  equal( json.data.length, 25, "Check JSON: length" );
@@ -1848,7 +1848,7 @@ test("jQuery.getJSON - Using Native JSON", function() {
 	};
 
 	stop();
-	jQuery.getJSON(url("data/json.php"), function(json) {
+	jQuery.getJSON(url("data/json.jhp"), function(json) {
 		window.JSON = old;
 		equal( json, true, "Verifying return value" );
 		start();
@@ -1861,7 +1861,7 @@ test("jQuery.getJSON(String, Function) - JSON object with absolute url to local 
 	var base = window.location.href.replace(/[^\/]*$/, "");
 
 	stop();
-	jQuery.getJSON(url(base + "data/json.php"), function(json) {
+	jQuery.getJSON(url(base + "data/json.jhp"), function(json) {
 	  equal( json.data.lang, "en", "Check JSON: lang" );
 	  equal( json.data.length, 25, "Check JSON: length" );
 	  start();
@@ -1872,7 +1872,7 @@ test("jQuery.post - data", 3, function() {
 	stop();
 
 	jQuery.when(
-		jQuery.post( url( "data/name.php" ), { xml: "5-2", length: 3 }, function( xml ) {
+		jQuery.post( url( "data/name.jhp" ), { xml: "5-2", length: 3 }, function( xml ) {
 			jQuery( "math", xml ).each(function() {
 				equal( jQuery( "calculation", this ).text(), "5-2", "Check for XML" );
 				equal( jQuery( "result", this ).text(), "3", "Check for XML" );
@@ -1880,16 +1880,16 @@ test("jQuery.post - data", 3, function() {
 		}),
 
 		jQuery.ajax({
-			url: url("data/echoData.php"),
+			url: url("data/echoData.jhp"),
 			type: "POST",
 			data: {
 				"test": {
 					"length": 7,
-						"foo": "bar"
+					"foo": "bar"
 				}
 			},
 			success: function( data ) {
-				strictEqual( data, "test%5Blength%5D=7&test%5Bfoo%5D=bar", "Check if a sub-object with a length param is serialized correctly");
+				strictEqual( data, "test%5Blength%5D=7&test%5Bfoo%5D=bar", "Check if a sub-object with a length param is serialized correctly" );
 			}
 		})
 	).always(function() {
@@ -1903,7 +1903,7 @@ test("jQuery.post(String, Hash, Function) - simple with xml", function() {
 	stop();
 	var done = 0;
 
-	jQuery.post(url("data/name.php"), {xml: "5-2"}, function(xml){
+	jQuery.post(url("data/name.jhp"), {xml: "5-2"}, function(xml){
 	  jQuery("math", xml).each(function() {
 			equal( jQuery("calculation", this).text(), "5-2", "Check for XML" );
 			equal( jQuery("result", this).text(), "3", "Check for XML" );
@@ -1911,7 +1911,7 @@ test("jQuery.post(String, Hash, Function) - simple with xml", function() {
 	  if ( ++done === 2 ) start();
 	});
 
-	jQuery.post(url("data/name.php?xml=5-2"), {}, function(xml){
+	jQuery.post(url("data/name.jhp?xml=5-2"), {}, function(xml){
 	  jQuery("math", xml).each(function() {
 			equal( jQuery("calculation", this).text(), "5-2", "Check for XML" );
 			equal( jQuery("result", this).text(), "3", "Check for XML" );
@@ -1945,7 +1945,7 @@ test("jQuery.ajaxSetup({timeout: Number}) - with global timeout", function() {
 
 	jQuery.ajax({
 	  type: "GET",
-	  url: url("data/name.php?wait=5"),
+	  url: url("data/name.jhp?wait=5"),
 	  error: pass,
 	  success: fail
 	});
@@ -1961,7 +1961,7 @@ test("jQuery.ajaxSetup({timeout: Number}) with localtimeout", function() {
 	jQuery.ajax({
 	  type: "GET",
 	  timeout: 15000,
-	  url: url("data/name.php?wait=1"),
+	  url: url("data/name.jhp?wait=1"),
 	  error: function() {
 		   ok( false, "Check for local timeout failed" );
 		   start();
@@ -1981,7 +1981,7 @@ test("jQuery.ajax - simple get", function() {
 	stop();
 	jQuery.ajax({
 	  type: "GET",
-	  url: url("data/name.php?name=foo"),
+	  url: url("data/name.jhp?name=foo"),
 	  success: function(msg){
 		equal( msg, "bar", "Check for GET" );
 		start();
@@ -1994,7 +1994,7 @@ test("jQuery.ajax - simple post", function() {
 	stop();
 	jQuery.ajax({
 	  type: "POST",
-	  url: url("data/name.php"),
+	  url: url("data/name.jhp"),
 	  data: "name=peter",
 	  success: function(msg){
 		equal( msg, "pan", "Check for POST" );
@@ -2007,7 +2007,7 @@ test("ajaxSetup()", function() {
 	expect(1);
 	stop();
 	jQuery.ajaxSetup({
-		url: url("data/name.php?name=foo"),
+		url: url("data/name.jhp?name=foo"),
 		success: function(msg){
 			equal( msg, "bar", "Check for GET" );
 			start();
@@ -2020,7 +2020,7 @@ test("ajaxSetup()", function() {
 test("custom timeout does not set error message when timeout occurs, see #970", function() {
 	stop();
 	jQuery.ajax({
-		url: "data/name.php?wait=1",
+		url: "data/name.jhp?wait=1",
 		timeout: 500,
 		error: function(request, status) {
 			ok( status != null, "status shouldn't be null in error handler" );
@@ -2034,7 +2034,7 @@ test("custom timeout does not set error message when timeout occurs, see #970", 
 test("data option: evaluate function values (#2806)", function() {
 	stop();
 	jQuery.ajax({
-		url: "data/echoQuery.php",
+		url: "data/echoQuery.jhp",
 		data: {
 			key: function() {
 				return "value";
@@ -2050,7 +2050,7 @@ test("data option: evaluate function values (#2806)", function() {
 test("data option: empty bodies for non-GET requests", function() {
 	stop();
 	jQuery.ajax({
-		url: "data/echoData.php",
+		url: "data/echoData.jhp",
 		data: undefined,
 		type: "post",
 		success: function(result) {
@@ -2069,7 +2069,7 @@ jQuery.each( { " (cache)": true, " (no cache)": false }, function( label, cache 
 
 		stop();
 
-		var url = "data/if_modified_since.php?ts=" + ifModifiedNow++;
+		var url = "data/if_modified_since.jhp?ts=" + ifModifiedNow++;
 
 		jQuery.ajax({
 			url: url,
@@ -2118,7 +2118,7 @@ jQuery.each( { " (cache)": true, " (no cache)": false }, function( label, cache 
 
 		stop();
 
-		var url = "data/etag.php?ts=" + ifModifiedNow++;
+		var url = "data/etag.jhp?ts=" + ifModifiedNow++;
 
 		jQuery.ajax({
 			url: url,
@@ -2191,7 +2191,7 @@ test("jQuery ajax - atom+xml", function() {
 	stop();
 
 	jQuery.ajax({
-		url: url( "data/atom+xml.php" ),
+		url: url( "data/atom+xml.jhp" ),
 		success: function(){ ok( true , "success" ); },
 		error: function(){ ok( false , "error" ); },
 		complete: function() { start(); }
@@ -2229,10 +2229,10 @@ test( "jQuery.ajax - Context with circular references (#9887)", 2, function () {
 
 test( "jQuery.ajax - statusText" , 3, function() {
 	stop();
-	jQuery.ajax( url( "data/statusText.php?status=200&text=Hello" ) ).done(function( _, statusText, jqXHR ) {
+	jQuery.ajax( url( "data/statusText.jhp?status=200&text=Hello" ) ).done(function( _, statusText, jqXHR ) {
 		strictEqual( statusText, "success", "callback status text ok for success" );
 		ok( jqXHR.statusText === "Hello" || jQuery.browser.safari && jqXHR.statusText === "OK", "jqXHR status text ok for success (" + jqXHR.statusText + ")" );
-		jQuery.ajax( url( "data/statusText.php?status=404&text=World" ) ).fail(function( jqXHR, statusText ) {
+		jQuery.ajax( url( "data/statusText.jhp?status=404&text=World" ) ).fail(function( jqXHR, statusText ) {
 			strictEqual( statusText, "error", "callback status text ok for error" );
 			// ok( jqXHR.statusText === "World" || jQuery.browser.safari && jqXHR.statusText === "Not Found", "jqXHR status text ok for error (" + jqXHR.statusText + ")" );
 			start();
@@ -2345,7 +2345,7 @@ test("jQuery.ajax - transitive conversions", function() {
 
 	jQuery.when(
 
-		jQuery.ajax( url("data/json.php") , {
+		jQuery.ajax( url("data/json.jhp") , {
 			converters: {
 				"json myJson": function( data ) {
 					ok( true , "converter called" );
@@ -2360,7 +2360,7 @@ test("jQuery.ajax - transitive conversions", function() {
 			}
 		}),
 
-		jQuery.ajax( url("data/json.php") , {
+		jQuery.ajax( url("data/json.jhp") , {
 			converters: {
 				"json myJson": function( data ) {
 					ok( true , "converter called (*)" );
@@ -2390,7 +2390,7 @@ test("jQuery.ajax - overrideMimeType", function() {
 
 	jQuery.when(
 
-		jQuery.ajax( url("data/json.php") , {
+		jQuery.ajax( url("data/json.jhp") , {
 			beforeSend: function( xhr ) {
 				xhr.overrideMimeType( "application/json" );
 			},
@@ -2399,7 +2399,7 @@ test("jQuery.ajax - overrideMimeType", function() {
 			}
 		}),
 
-		jQuery.ajax( url("data/json.php") , {
+		jQuery.ajax( url("data/json.jhp") , {
 			mimeType: "application/json",
 			success: function( json ) {
 				ok( json.data , "Mimetype overriden using mimeType option" );
@@ -2458,7 +2458,7 @@ test( "jQuery.domManip - no side effect because of ajaxSetup or global events (#
 		ok( false, "Global event triggered" );
 	});
 
-	jQuery( "#qunit-fixture" ).append( "<script src='data/evalScript.php'></script>" );
+	jQuery( "#qunit-fixture" ).append( "<script src='data/evalScript.jhp'></script>" );
 
 	jQuery( document ).unbind( "ajaxStart ajaxStop" );
 

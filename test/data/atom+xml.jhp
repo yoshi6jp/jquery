@@ -1,0 +1,8 @@
+<?
+	response.setHeader( "Content-type", "atom+xml" );
+?>
+<root>
+	<element />
+</root>
+<?
+	response.end();

@@ -1,0 +1,2 @@
+<?
+	response.end( "ok( \"" + request.method + "\" === \"GET\", \"request method is " + request.method + "\" );" );

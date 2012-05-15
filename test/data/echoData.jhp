@@ -1,0 +1,6 @@
+<?
+	response.setHeader( "Content-Type", "text/plain" );
+
+	request.body.done(function( body ) {
+		response.end( body );
+	});

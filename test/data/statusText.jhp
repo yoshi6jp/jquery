@@ -1,0 +1,6 @@
+<?
+
+var query = request.parsedURL.query;
+
+response.writeHead( query.status, query.text );
+response.end();

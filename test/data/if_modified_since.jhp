@@ -1,0 +1,16 @@
+<?
+var ts = request.parsedURL.query.ts,
+	ifModifiedSince = request.headers[ "if-modified-since" ];
+
+if ( ifModifiedSince === ts ) {
+	response.writeHead( 304 );
+} else {
+	response.setHeader( "Last-Modified", ts );
+	if ( ifModifiedSince ) {
+		response.write( "OK: " + ts );
+	} else {
+		response.write( "FAIL" );
+	}
+}
+
+response.end();
