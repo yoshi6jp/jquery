@@ -12,13 +12,13 @@ var version = (function() {
 		return referer && require("url").parse( referer, true ).query.jquery
 			|| request.parsedURL.query.jquery;
 	})();
-	
+
 // load up built versions of jquery
 if ( version ) {
 	if( version === "min" ) {
-		fs.createReadStream( "../dist/jquery.min.js" ).pipe( response );
+		fs.createReadStream( path.join( __dirname, "../../dist/jquery.min.js" ) ).pipe( response );
 	} else if( version === "dist" ) {
-		fs.createReadStream( "../dist/jquery.js" ).pipe( response );
+		fs.createReadStream( path.join( __dirname, "../../dist/jquery.js" ) ).pipe( response );
 	} else {
 		response.end( "document.write('<script src=\"http://code.jquery.com/jquery-" + version + ".js\"><'+'/script>');" );
 	}
@@ -66,7 +66,7 @@ var files = {
 	
 for ( key in files ) {
 	count++;
-	fs.readFile( "src/" + key + ".js", (function( key ) {
+	fs.readFile( path.join( __dirname, "../../src/" + key + ".js" ), (function( key ) {
 		return function( err, data ) {
 			files[ key ] = err || ( "" + data ).replace( "(function( jQuery ) {", "" ).replace( "})( jQuery );", "" );
 			decount();
